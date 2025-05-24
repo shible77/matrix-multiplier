@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 const MatrixMultiplier: React.FC = () => {
-  const [matrix1, setMatrix1] = useState<number[][]>([[], []]);
-  const [matrix2, setMatrix2] = useState<number[][]>([[], []]);
+  const [matrix1, setMatrix1] = useState<number[][]>([]);
+  const [matrix2, setMatrix2] = useState<number[][]>([]);
   const [result, setResult] = useState<number[][] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [rows1, setRows1] = useState<number>(2);
@@ -14,10 +14,12 @@ const MatrixMultiplier: React.FC = () => {
     const numValue = parseFloat(value) || 0;
     if (matrix === 1) {
       const newMatrix1 = [...matrix1];
+      newMatrix1[row] = [...(newMatrix1[row] || [])];
       newMatrix1[row][col] = numValue;
       setMatrix1(newMatrix1);
     } else {
       const newMatrix2 = [...matrix2];
+      newMatrix2[row] = [...(newMatrix2[row] || [])];
       newMatrix2[row][col] = numValue;
       setMatrix2(newMatrix2);
     }
@@ -41,7 +43,7 @@ const MatrixMultiplier: React.FC = () => {
       for (let j = 0; j < cols2; j++) {
         let sum = 0;
         for (let k = 0; k < cols1; k++) {
-          sum += matrix1[i][k] * matrix2[k][j];
+          sum += (matrix1[i]?.[k] || 0) * (matrix2[k]?.[j] || 0);
         }
         resultMatrix[i][j] = sum;
       }
@@ -62,44 +64,42 @@ const MatrixMultiplier: React.FC = () => {
           Matrix Multiplier
         </h1>
         <div className="mb-4">
-          <div className="flex  space-x-4 mb-2">
+          <div className="flex space-x-4 mb-2">
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">Matrix 1 Rows:</label>
+              <label className="block text-gray-700 text-sm font-bold mb-2">Matrix 1:</label>
               <input
                 type="number"
-                value={rows1}
+                placeholder='Rows'
                 onChange={(e) => setRows1(parseInt(e.target.value) || 2)}
                 className="shadow border rounded w-20 py-2 px-3"
                 min="1"
               />
             </div>
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">Cols:</label>
               <input
                 type="number"
-                value={cols1}
+                placeholder='Cols'
                 onChange={(e) => setCols1(parseInt(e.target.value) || 2)}
-                className="shadow border rounded w-20 py-2 px-3"
+                className="shadow border rounded w-20 py-2 px-3 mt-7"
                 min="1"
               />
             </div>
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">Matrix 2 Rows:</label>
+              <label className="block text-gray-700 text-sm font-bold mb-2">Matrix 2:</label>
               <input
                 type="number"
-                value={rows2}
+                placeholder='Rows'
                 onChange={(e) => setRows2(parseInt(e.target.value) || 2)}
                 className="shadow border rounded w-20 py-2 px-3"
                 min="1"
               />
             </div>
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">Cols:</label>
               <input
                 type="number"
-                value={cols2}
+                placeholder='Cols'
                 onChange={(e) => setCols2(parseInt(e.target.value) || 2)}
-                className="shadow border rounded w-20 py-2 px-3"
+                className="shadow border rounded w-20 py-2 px-3 mt-7"
                 min="1"
               />
             </div>
@@ -121,7 +121,7 @@ const MatrixMultiplier: React.FC = () => {
                   <input
                     key={j}
                     type="number"
-                    placeholder='1'
+                    placeholder='0'
                     onChange={(e) => handleInputChange(1, i, j, e.target.value)}
                     className="shadow border rounded w-16 py-1 px-2"
                   />
@@ -137,7 +137,7 @@ const MatrixMultiplier: React.FC = () => {
                   <input
                     key={j}
                     type="number"
-                    placeholder='1'
+                    placeholder='0'
                     onChange={(e) => handleInputChange(2, i, j, e.target.value)}
                     className="shadow border rounded w-16 py-1 px-2"
                   />
