@@ -121,7 +121,7 @@ const MatrixMultiplier: React.FC = () => {
                   <input
                     key={j}
                     type="number"
-                    placeholder='0'
+                    placeholder={val.toString() || '0'}
                     onChange={(e) => handleInputChange(1, i, j, e.target.value)}
                     className="shadow border rounded w-16 py-1 px-2"
                   />
@@ -137,7 +137,7 @@ const MatrixMultiplier: React.FC = () => {
                   <input
                     key={j}
                     type="number"
-                    placeholder='0'
+                    placeholder={val.toString() || '0'}
                     onChange={(e) => handleInputChange(2, i, j, e.target.value)}
                     className="shadow border rounded w-16 py-1 px-2"
                   />
