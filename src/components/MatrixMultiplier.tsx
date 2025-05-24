@@ -117,7 +117,7 @@ const MatrixMultiplier: React.FC = () => {
             <h2 className="text-lg font-semibold text-gray-700">Matrix 1</h2>
             {matrix1.map((row, i) => (
               <div key={i} className="flex space-x-2 mb-2">
-                {row.map((j) => (
+                {row.map((val, j) => (
                   <input
                     key={j}
                     type="number"
@@ -133,7 +133,7 @@ const MatrixMultiplier: React.FC = () => {
             <h2 className="text-lg font-semibold text-gray-700">Matrix 2</h2>
             {matrix2.map((row, i) => (
               <div key={i} className="flex space-x-2 mb-2">
-                {row.map((j) => (
+                {row.map((val, j) => (
                   <input
                     key={j}
                     type="number"
